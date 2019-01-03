@@ -1,0 +1,524 @@
+<!DOCTYPE html >
+<!-- saved from url=(0039)https://haopan.github.io/sketchCNN.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <!-- TemplateBeginEditable name="doctitle" -->
+    <title>Mesh  Parameterization : a Viewpoint from Constant Mean Curvature Surfaces</title>
+    <!-- TemplateEndEditable -->
+    <!-- TemplateBeginEditable name="head" -->
+    <!-- TemplateEndEditable -->
+    
+    <style type="text/css">
+        
+        body {
+            font: 100%/1.4 Verdana, Arial, Helvetica, sans-serif;
+            background-color: #42413C;
+            margin: 0;
+            padding: 0;
+            color: #000;
+            background-attachment: fixed;
+            font-size: 17px;
+        }
+
+        /* ~~ Element/tag selectors ~~ */
+        ul, ol, dl { /* Due to variations between browsers, it's best practices to zero padding and margin on lists. For consistency, you can either specify the amounts you want here, or on the list items (LI, DT, DD) they contain. Remember that what you do here will cascade to the .nav list unless you write a more specific selector. */
+            padding: 0;
+            margin: 0;
+        }
+
+        td {
+            padding-left: 15px;
+            padding-right: 15px;/*padding-left和padding-right的值必须一致，方可实现*/
+        }
+        h1, h2, h3, h4, h5, h6, p {
+            margin-top: 0; /* removing the top margin gets around an issue where margins can escape from their containing div. The remaining bottom margin will hold it away from any elements that follow. */
+            padding-right: 15px;
+            padding-left: 15px; /* adding the padding to the sides of the elements within the divs, instead of the divs themselves, gets rid of any box model math. A nested div with side padding can also be used as an alternate method. */
+            font-size: 130%;
+            text-align: justify;
+        }
+
+        a img { /* this selector removes the default blue border displayed in some browsers around an image when it is surrounded by a link */
+            border: none;
+        }
+
+        /* ~~ Styling for your site's links must remain in this order - including the group of selectors that create the hover effect. ~~ */
+        a:link {
+            color: #42413C; /* unless you style your links to look extremely unique, it's best to provide underlines for quick visual identification */
+            font-family: Verdana, Arial, Helvetica, sans-serif;
+        }
+
+        a:visited {
+            color: #6E6C64;
+        }
+
+        a:hover, a:active, a:focus { /* this group of selectors will give a keyboard navigator the same hover experience as the person using a mouse. */
+            text-decoration: none;
+        }
+
+        /* ~~ this fixed width container surrounds all other divs~~ */
+        .container {
+            width: 1000px;
+            background-color: #FFF;
+            margin: 0 auto; /* the auto value on the sides, coupled with the width, centers the layout */
+            overflow: hidden; /* this declaration makes the .container understand where the floated columns within ends and contain them */
+        }
+
+        .sidebar1 {
+            float: left;
+            width: 180px;
+            height: 800px;
+            background-color: #EADCAE;
+            padding-bottom: 10px;
+        }
+
+        .content {
+            padding: 10px 0px 10px 0px;
+            width: 1000px;
+            float: center;
+            text-align: center;
+        }
+
+        .sidebar2 {
+            float: left;
+            width: 180px;
+            background-color: #EADCAE;
+            padding: 10px 0;
+        }
+
+        /* ~~ This grouped selector gives the lists in the .content area space ~~ */
+        .content ul, .content ol {
+            padding: 0 15px 15px 40px; /* this padding mirrors the right padding in the headings and paragraph rule above. Padding was placed on the bottom for space between other elements on the lists and on the left to create the indention. These may be adjusted as you wish. */
+        }
+
+        /* ~~ The navigation list styles (can be removed if you choose to use a premade flyout menu like Spry) ~~ */
+        ul.nav {
+            list-style: none; /* this removes the list marker */
+            border-top: 1px solid #666; /* this creates the top border for the links - all others are placed using a bottom border on the LI */
+            margin-bottom: 15px; /* this creates the space between the navigation on the content below */
+        }
+
+            ul.nav li {
+                border-bottom: 1px solid #666; /* this creates the button separation */
+            }
+
+            ul.nav a, ul.nav a:visited { /* grouping these selectors makes sure that your links retain their button look even after being visited */
+                padding: 5px 5px 5px 15px;
+                display: block; /* this gives the link block properties causing it to fill the whole LI containing it. This causes the entire area to react to a mouse click. */
+                width: 160px; /*this width makes the entire button clickable for IE6. If you don't need to support IE6, it can be removed. Calculate the proper width by subtracting the padding on this link from the width of your sidebar container. */
+                text-decoration: none;
+                background-color: #C6D580;
+            }
+
+                ul.nav a:hover, ul.nav a:active, ul.nav a:focus { /* this changes the background and text color for both mouse and keyboard navigators */
+                    background-color: #ADB96E;
+                    color: #FFF;
+                }
+
+        /* ~~ miscellaneous float/clear classes ~~ */
+        .fltrt { /* this class can be used to float an element right in your page. The floated element must precede the element it should be next to on the page. */
+            float: right;
+            margin-left: 8px;
+        }
+
+        .fltlft { /* this class can be used to float an element left in your page. The floated element must precede the element it should be next to on the page. */
+            float: left;
+            margin-right: 8px;
+        }
+
+        .clearfloat { /* this class can be placed on a <br /> or empty div as the final element following the last floated div (within the #container) if the overflow:hidden on the .container is removed */
+            clear: both;
+            height: 0;
+            font-size: 1px;
+            line-height: 0px;
+        }
+
+        .container .content .content {
+            font-size: 100%;
+            text-align: center;
+        }
+        
+    </style>
+    
+</head>
+
+<body>
+    <div class="container">
+
+        <div class="content">
+            <table width="80%" align="center" cellspacing="10">
+                <tbody><tr>
+                    <td align="center" style="font-size:120%"><strong>Mesh Parameterization : a Viewpoint from Constant Mean Curvature Surfaces </strong></td>
+                </tr>
+                <tr>
+                    <td align="center" style="font-size:90%">Hui Zhao</a><font size="2"><sup>1</sup></font>, Kehua Su</a><font size="2"><sup>2</sup></font>,Chenchen Li</a><font size="2"><sup>2</sup></font>,Boyu Zhang </a><font size="2"><sup>5</sup></font>, Shirao Liu</a><font size="2"><sup>1</sup></font>, Lei Yang</a><font size="2"><sup>1</sup></font>, Na Lei</a><font size="2"><sup>4</sup></font>, Steven J. Gortler</a><font size="2"><sup>5</sup></font>, Xianfeng Gu</a><font size="2"><sup>3</sup></font></td>
+                </tr>
+                <tr>
+                    <td align="center" style="font-size:90%"><font size="2"><sup>1</sup></font>The Capital Normal University, China <font size="2"><sup>2</sup></font>Wuhan University, China <font size="2"><sup>3</sup></font>State University of New York at Stony Brook, USA  <font size="2"><sup>4</sup></font> Dalian University of Technology, China <font size="2"><sup>5</sup></font>Harvard University, USA</td>
+                </tr>
+            <!--
+                <tr>
+                    <td align="center" style="font-size:90%">ACM Transactions on Graphics (Proceedings of SIGGRAPH Asia 2018)</td>
+                </tr>
+            -->
+                <tr>
+                    <td align="center" style="font-size:100%">&nbsp;</td>
+                </tr>
+                <tr>
+                    <td align="center"><img src="./1_files/Buddha.jpg.下载" width="100%" alt="Paper teaser"></td>
+                </tr>
+                <tr>
+                    <td align="justify" style="font-size:75%">
+                        The Buddha model deforms to a planar mesh.
+                    </td>
+                </tr>
+                <tr>
+                    <td align="left" style="font-size:100%"><strong>Abstract</strong></td>
+                </tr>
+                <tr>
+                    <td align="left" style="font-size:75%">
+                    &nbsp;&nbsp;&nbsp;Based on mesh deformation, we present a unified mesh paramterization algorithm for both planar and spheric domains.Unlike previous methods, our approach can produce   intermediate frames from the original   to target meshes.We derive and define  a novel geometric flow: unit normal flow(UNF) and prove that if  unit normal flow converges, it will deform a surface to a constant mean curvature(CMC) surface, such as plane and sphere.
+					Our method works by deforming  meshes of disk topology to planes,   meshes of spheric topology to  spheres.Our algorithm is  robust, efficient,   simple to implement and scales to models with millions of faces. To demonstrate the robustness and effectiveness of our method, we apply it to hundreds of models of varying complexity.Our experiments show that our algorithm compares favourably to other state-of-the-art mesh parameterization methods and the mapping results have few of flips.The unit normal flow we propose also suggests a potential direction  for creating CMC surfaces. 
+                    </td>
+                </tr>
+                <!--<tr>
+                    <td align="left" style="font-size:110%"><strong>Paper and data</strong></td>
+                </tr>-->
+                <tr align="left">
+                    <td>
+                        <table>
+                            <tbody><tr>
+                                <td><a href="https://haopan.github.io/papers/SketchCNN.pdf"><img src="./1_files/1.jpg.下载" width="190"></a></td>
+                                <td>&nbsp;</td>
+                                <td style="font-size:75%">
+                                    <strong>PPT</strong> [<a href="./1_files/UNF.pptx">PPT</a>] <br><br>
+                                    <strong>Paper</strong> [<a href="./1_files/HuiPGShort.PDF">PDF</a>] <br><br>
+                                    <strong>Code and data</strong>  Coming soon. <br><br>
+                                    <strong>Supplemental doc</strong> Coming soon<br><br>
+                                    
+                                    <strong>Citation</strong><br>
+                                    Hui Zhao,Kehua Su,Chenchen Li,Boyu Zhang,Shirao Liu,Lei Yang,Na Lei,Steven J. Gortler and Xianfeng Gu
+                                    2018. Mesh Parameterization : a Viewpoint from Constant Mean Curvature Surfaces. Pacific Graphics (2018), 15 pages.
+                                </td>
+                            </tr>
+                        </tbody></table>
+                    </td>
+                </tr>
+                <tr>
+                    <td align="center">&nbsp;</td>
+                </tr>
+                <tr>
+                    <td align="left" style="font-size:100%"><strong> Introduction</strong></td>
+                </tr>
+                <tr>
+                    <td align="left" style="font-size:75%">
+                        &nbsp;&nbsp;&nbsp;In this paper, we present a simple and novel algorithm of planar and spheric mesh parameterization. Our methodology is different from previous ones: we are not computing a direct embedding of a mesh
+onto planar or spheric domain, instead we deform it towards planar
+and spheric shape. Previous planar parameterization algorithms all
+have an implicit constraint: the target domain is the specific fixed
+{XY} plane for all meshes. This limitation does not take the orientations and shapes of meshes into consideration. It also narrows the
+solution space and makes it difficult to achieve ideal solution. Our
+deformation based on approach unlocks this limitation, such that different shapes unfold naturally to the planes of varying orienta-
+tions. Our method is more natural and intuitive.
+<br>
+&nbsp;&nbsp;&nbsp;Our method unifies planar and spheric mesh parameterization
+into a single framework, which consists of the iterations of two
+steps: average of face normals and surface deformation. For meshes
+of disk or sphere topology, they will converge to planar or spheric
+shapes automatically under the iterations. Figure 1, 2 and 3 demonstrate the deformations and their planar and spheric parameteriztions respectively. Our approach produces bijective mappings in
+practice, although we do not prove it theoretically.
+<br>
+
+&nbsp;&nbsp;&nbsp;Firstly we compute the new normal of every point by averaging
+the normals of its neighbours. Secondly we reconstruct a surface
+which fits the current normals. The iterations of these two steps
+emerge a heat-like geometric flow on surfaces. We call it unit normal flow(UNF). This observation guides the design of our algorithm.Andourexperimentsonhundredsofdiscretemeshessuggest that, as far as sphere and plane are concerned, the flow probably
+will converge.<br>
+				
+                
+&nbsp;&nbsp;&nbsp;The most important application of planar parameterization is texturing meshes. We render the planar mesh 1f with the normals in
+the corresponding original 3D mesh, such as shown in Figure 4a;
+then we draw textures on the rendered image 4b; finally the texturing 3D mesh is exhibited in Figure 4c. In our attached video, we
+also show the special effect of two dimensional foil described in the science-fiction books.
+<br>
+&nbsp;&nbsp;&nbsp;In summary, our contributions in this paper are: 1) defining a
+novel geometric flow on surfaces: unit normal flow; 2) establishing and deriving the relationship between unit normal flow(UNF)
+andconstantmeancurvature(CMC)surfaces;3)proposingarobust,
+simple-to-implement algorithm to discretizing and approximating
+the non-linear UNF; 4) applying the algorithm in the application
+of planar and spheric mesh parameterization, and our method has a
+special feature of mapping the selected partial parts of meshes onto
+a plane and keeping left parts unchanged.
+
+                    </td>
+                </tr>
+                <tr>
+                	<td style="font-size:65%">
+                <img align="center" src="./1_files/figure2.jpg.下载" width="50%" align="middle"><br>
+                <I> Figure 2: (a) is the texturing; (b) is the original mesh; (c),(d),(e)
+are the intermediate deforming frames; (f) is the final planar mapping.</I>
+<br>
+<br>
+
+ <img align="center" src="./1_files/figure3.jpg.下载" width="43%"><br>
+                <I>Figure 3: The deforamtion of bimba model and its spheric parameterization.</I>
+<br>
+<br>
+<img align="center" src="./1_files/figure4.jpg.下载" width="50%"><br>
+                <I>Figure 4: The texturing of the buddha model.</I>
+<br>
+<br>
+</td>
+</tr>
+                <tr>
+                    <td align="center">&nbsp;</td>
+                </tr>
+                <tr>
+                    <td align="left" style="font-size:100%"><strong> Unit Normal Flow</strong></td>
+                </tr>
+                <tr>
+                    <td align="left" style="font-size:75%">
+                        &nbsp;&nbsp;&nbsp;Our motivation is deforming surfaces by the following criteria:
+The time derivatives of surface normals should be equal to the
+Laplacians of the normals. In this section, we define and propose unit normal flow mathematically. This flow is different from
+well-known mean curvature flow averaged mean curvature flow , Willmore flow , Ricci flow
+, surface diffusion flow . All these kinds
+of flows can be modelled as geometric partial differential equations(PDE) . As far as we know, this definition is the first time to appear in the mathematical and graphic research
+literatures.<br>
+&nbsp;&nbsp;&nbsp;Let S be a smoothly immersed surface in R<sup>3</sup> . Let g be the metric
+on Srestricted from R<sup>3</sup> .Let n be the smooth unit normal vector field
+on S. Denote h,i as the inner product and ∆<sub>g</sub>n as the Laplacians of
+the unit normals. The formal definition of unit normal flow is the
+following:
+<img src="./1_files/for2.jpg.下载" width="15%">
+<br>
+&nbsp;&nbsp;&nbsp;Notice that the norm of n is preserved under this flow, since
+<img src="./1_files/for3.jpg.下载" width="30%">
+<br>
+Lemma 1 :If the Laplacians ∆<sub>g</sub>n of the unit normal field n is parallel
+to n, i.e., ∆<sub>g</sub>n//n, then the mean curvature H of S is constant.
+
+                    </td>
+                </tr>
+                 <tr>
+                    <td align="left" style="font-size:100%"><strong> Our algorithms</strong></td>
+                </tr>
+                <tr>
+                    <td align="left" style="font-size:75%">
+                        &nbsp;&nbsp;&nbsp;The key point is the discreterization of the Laplace operator. In
+graphics community, the well-known cotangent Laplace operator is for functions defined on vertice of meshes. Therefore it
+can not be used for our face normals. In this paper, we propose
+to use a simple method to approximate the Laplacian operator of
+normal functions on faces by the following formula:
+<img src="./1_files/for4.jpg.下载" width="25%">
+<br>
+&nbsp;&nbsp;&nbsp;Where n<sub>j</sub>n(t) denote the unit normal of face i at time t, ∆<sub>d</sub>n<sub>i</sub> represents the discrete Laplace operator of the face normal function, the Neighbor(i) denotes the neighbours of the face i, which includes i
+itself. Then the new normal at time t +1 is computed by the follows:
+<img src="./1_files/for5.jpg.下载" width="25%">
+<br>
+&nbsp;&nbsp;&nbsp;Our flow is defined on unit face normals. Even though face normals
+n<sub>i</sub> are unit, ∆<sub>d</sub>n<sub>i</sub> can not be guaranteed to be unit. We need normal-
+ize it. In practice, the faces in Neighbor(i) are not constrained to be
+one-ring, they could be k-ring neighbours.<br>
+&nbsp;&nbsp;&nbsp;After the new face normals are computed in every step, we rotate all triangle faces from their old orientations to the current ones.
+However the triangles are rotated independently, the result triangle soup is not a valid mesh. We use the Poisson system based
+method to reconstruct the triangles into a unified
+mesh. This step can be thought as solving a system of the unknown
+positions from the known normal variables .<br>
+&nbsp;&nbsp;&nbsp;In summary, our algorithm consists of two steps: in the first step,
+we average the unit face normals; in the second step, we deform
+or reconstruct the surface by the constraints of the current unit face
+normals. After the two steps, we get a new mesh which is smoother
+than previous one. These two steps are iteratively calculated until the flow converges and the shape of the mesh does not change
+anymore.
+
+
+                    </td>
+                </tr>
+
+<tr><td style="font-size:65%">
+	<br>
+<img align="center" src="./1_files/figure5.jpg.下载" width="50%"><br>
+                <I>Figure 5: The planar mapping and texturing of four multiboundary meshes.</I>
+<br>
+<br>
+<br>
+<img align="center" src="./1_files/figure6.jpg.下载" width="45%"><br>
+                <I>Figure 6: The red arrows represent the natural face normals on
+the boundary of the original mesh (a) and the green ones are the
+normals we assigned; (d) (e) and(f) are the deforming meshes by
+red normals; (c) is the planar mesh deformed by the green normals;
+The texturing is exhibited in (b).</I>
+<br>
+<br>
+<br>
+<img align="center" src="./1_files/figure7.jpg.下载" width="50%"><br>
+                <I>Figure 7:  The CMC-like surfaces generated by unit nor-
+mal flow. The radii and heights of the cylinders are
+(10,10),(10,15),(10,20),(10,30),(10,40),(10,50) respectively.</I>
+<br>
+<br>
+
+<img align="center" src="./1_files/figure8.jpg.下载" width="50%"><br>
+                 <I>Figure 8: The half-sphere and unit disk (a) are assigned three dif-
+ferent set of boundary face normals; (b), (c), (d) show their corre-
+sponding convergent shapes. </I>
+<br>
+<br>
+</td></tr>
+
+                 <tr>
+                    <td align="left" style="font-size:100%"><strong> Experiments</strong></td>
+                </tr>
+                <tr>
+                    <td align="left" style="font-size:75%">
+                        &nbsp;&nbsp;&nbsp;To demonstrate the efficiency and robustness of our algorithm, we
+apply our algorithm to hundreds of challenging meshes of disk and
+spheric topology.
+<br>
+&nbsp;&nbsp;&nbsp;We demonstrate our mapping and corresponding texturing of
+disk-topology meshes in Figure 5. The intermediate deforming
+frames are also exhibited in Figure 1, 2.
+<br>
+
+
+&nbsp;&nbsp;&nbsp;The unfolded result of our algorithm is affected by the initial
+normals of boundary faces. When the boundary of a mesh is small
+and tight, possibly it can not unfolded towards a plane driven by its natural initial face normals. The mesh in Figure 6a will deform to
+the non-planar shape of Figure 6f after 500 hundreds of iterations
+through Figure 6d and 6e with its natural boundary face normals.
+We solve the problem by assigning it a set of specific boundary
+normals to pull faces apart, such that it is able to stretch to a plane
+in Figure 6c whose the corresponding texturing is shown in Figure
+6b.<br>
+&nbsp;&nbsp;&nbsp;In Figure 3, we demonstrates the deformation and parameteri-
+zation of spheric topology. Unlike the planar one, the spheric unit
+normal flow converges slowly and needs thousands of iterations for
+most meshes.
+<br>
+&nbsp;&nbsp;&nbsp;Plane and sphere are special and simple constant mean curva-
+ture surfaces. Our approximation and discreterization of unit nor-
+mal flow work successfully on them. For other kinds of CMC sur-
+faces, our algorithm can also drive the flow to deform the corre-
+sponding discrete meshes. However, the convergent shapes are not
+CMC surfaces in exact mathematical sense. We call them CMC-
+like surfaces.
+<br>
+&nbsp;&nbsp;&nbsp;In Figure 7, we demonstrate the convergent shapes of the cylin-
+dersofasetofdifferentradiiandheights,constrainedbytwosetsof
+the different boundary face normals, under our unit normal flow. In
+this experiment, the positions of the boundary vertice of the cylin-
+ders are fixed. The red arrows are the representatives of the first set
+of the boundary face normals; the green arrows are from the sec-
+ond set. The convergent shapes are catenoid-like surfaces, however
+the radii and heights we uses does not satisfy the exact mathemati-
+cal formula of catenoids. In Figure 8, we deform a half-sphere and
+a unit disk to the different CMC-like surfaces under varying face
+normals constraints.
+<br>
+
+
+
+&nbsp;&nbsp;&nbsp;On one hand, CMC-like surfaces suggest and give us hint that
+unit normal flow could be mathematically convergent on smooth
+surfaces for all CMC surfaces. On the another hand, How to design
+a more accurate discrete unit normal flow for other kinds of CMC
+surfaces is a challenging problem and our future works.
+
+                    </td>
+                </tr>
+
+                <tr>
+                    <td align="left" style="font-size:100%"><strong> Conclusion and future work</strong></td>
+                </tr>
+                <tr>
+                    <td align="left" style="font-size:75%">
+                       &nbsp;&nbsp;&nbsp; We propose a special unit normal flow(UNF) to deform surfaces.
+Thisflow averagesthenormalsof asmoothsurface,and reconstruct
+the geometry to fit the smoothed normals. We define the mathe-
+matical equation of unit normal flow, and prove that the conver-
+gent surface has constant mean curvature if the flow is stable and
+converges. We also present an approximation method on discrete
+meshes and apply it to the applications of planar and spheric mesh
+parameterization. Our algorithm provides bijective mapping and it
+outperforms many state-of-art methods.
+<br>
+&nbsp;&nbsp;&nbsp;There are still some important works left for future. The con-
+vergence, singularity, existences and uniqueness of the unit normal
+flow are waiting to be proved. It is also a great challenge to design an efficient, stable and accurate discrete algorithm to construct
+other types of constant mean curvature surfaces besides planes and
+spheres.
+<br>
+
+                    </td>
+                </tr>
+
+<tr>
+                    <td align="left" style="font-size:100%"><strong> Conclusion and future work</strong></td>
+                </tr>
+                <tr>
+                    <td align="left" style="font-size:75%">
+    &nbsp;&nbsp;&nbsp;We would like to thank anonymous reviewers for their insight-
+ful feedbacks, valuable comments, and suggestions. Some pic-
+tures are rendered by Mitsuba. All 3D models are
+from the AIM@SHAPE shape repository and Thingi10K reposi-
+tory. Thanks MeshDGP framework for the implementa-
+tion reference. The project is partially supported by NSFC No.
+61772379, 61772105, 61720106005, NSF DMS-1737812, NSF
+DMS-1418255,AFOSRFA9550-14-1-0193, NIH1R01LM012434
+and National ST Major Project of China (2018ZX10301201), the
+National Natural Science Foundation of China (11772047) and Key
+international collaborating Project from National Natural Science
+Foundation of China (11620101001).
+<br>
+
+                </td>
+                </tr>
+                <tr>
+                	<td align="left" style="font-size:100%">
+                    <b>Video</b><br>
+                        
+                        <p style="text-align: center"><iframe class="video_iframe" style="z-index:1;" src="http://v.qq.com/iframe/player.html?vid=s0758wndm0z&amp;width=500&amp;height=375&amp;auto=0" allowfullscreen="" frameborder="0" height="375" width="500"></iframe></p>
+                        <br>
+                        <p style="text-align: center"><iframe class="video_iframe" style="z-index:1;" src="http://v.qq.com/iframe/player.html?vid=s0758n3ptf1&amp;width=500&amp;height=375&amp;auto=0" allowfullscreen="" frameborder="0" height="375" width="500"></iframe></p>
+                        <br>
+                        <p style="text-align: center"><iframe class="video_iframe" style="z-index:1;" src="http://v.qq.com/iframe/player.html?vid=o0758kc19dg&amp;width=500&amp;height=375&amp;auto=0" allowfullscreen="" frameborder="0" height="375" width="500"></iframe></p>
+                        <br>
+                        <p style="text-align: center"><iframe class="video_iframe" style="z-index:1;" src="http://v.qq.com/iframe/player.html?vid=e076109ecaw&amp;width=500&amp;height=375&amp;auto=0" allowfullscreen="" frameborder="0" height="375" width="500"></iframe></p>
+                        <br>
+                        <p style="text-align: center"><iframe class="video_iframe" style="z-index:1;" src="http://v.qq.com/iframe/player.html?vid=t0761k4ukkn&amp;width=500&amp;height=375&amp;auto=0" allowfullscreen="" frameborder="0" height="375" width="500"></iframe></p>
+                        <br>
+                        <p style="text-align: center"><iframe class="video_iframe" style="z-index:1;" src="http://v.qq.com/iframe/player.html?vid=m0761376k1k&amp;width=500&amp;height=375&amp;auto=0" allowfullscreen="" frameborder="0" height="375" width="500"></iframe></p>
+                        <br>
+                        <p style="text-align: center"><iframe class="video_iframe" style="z-index:1;" src="http://v.qq.com/iframe/player.html?vid=m0758gdplzr&amp;width=500&amp;height=375&amp;auto=0" allowfullscreen="" frameborder="0" height="375" width="500"></iframe></p>
+                        <br>
+                        <p style="text-align: center"><iframe class="video_iframe" style="z-index:1;" src="http://v.qq.com/iframe/player.html?vid=h07615nugok&amp;width=500&amp;height=375&amp;auto=0" allowfullscreen="" frameborder="0" height="375" width="500"></iframe></p>
+                        <br>
+                        <p style="text-align: center"><iframe class="video_iframe" style="z-index:1;" src="http://v.qq.com/iframe/player.html?vid=d0758dql7tj&amp;width=500&amp;height=375&amp;auto=0" allowfullscreen="" frameborder="0" height="375" width="500"></iframe></p>
+                        <br>
+                        <p style="text-align: center"><iframe class="video_iframe" style="z-index:1;" src="http://v.qq.com/iframe/player.html?vid=y0758ro8us0&amp;width=500&amp;height=375&amp;auto=0" allowfullscreen="" frameborder="0" height="375" width="500"></iframe></p>
+                        <br>
+                        <p style="text-align: center"><iframe class="video_iframe" style="z-index:1;" src="http://v.qq.com/iframe/player.html?vid=e0761abyiyj&amp;width=500&amp;height=375&amp;auto=0" allowfullscreen="" frameborder="0" height="375" width="500"></iframe></p>
+                        <br>
+                        <p style="text-align: center"><iframe class="video_iframe" style="z-index:1;" src="http://v.qq.com/iframe/player.html?vid=m0761abfmid&amp;width=500&amp;height=375&amp;auto=0" allowfullscreen="" frameborder="0" height="375" width="500"></iframe></p>
+                        <br>
+                        <p style="text-align: center"><iframe class="video_iframe" style="z-index:1;" src="http://v.qq.com/iframe/player.html?vid=r0761duypvn&amp;width=500&amp;height=375&amp;auto=0" allowfullscreen="" frameborder="0" height="375" width="500"></iframe></p>
+                       
+                    </td>
+                </tr>
+                <tr>
+                    <td align="center">&nbsp;</td>
+                </tr>
+                <tr>
+                    <td align="center">&nbsp;</td>
+                </tr>
+                <tr>
+                    <td align="center" style="font-size:80%">©Lei Yang. Last update: Oct 24, 2018.</td>
+                </tr>
+            </tbody></table>
+        </div>
+        <!-- end .container -->
+    </div>
+
+
+<div></div></body></html>
